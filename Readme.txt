@@ -1,6 +1,6 @@
 FAQ plugin for Elgg 1.9
-Latest Version: 1.9.6
-Released: 2014-08-17
+Latest Version: 1.9.7
+Released: 2014-09-27
 Contact: iionly@gmx.de
 License: GNU General Public License version 2
 Copyright: (C) iionly 2012-2014, (C) ColdTrick 2009-2014
@@ -24,6 +24,13 @@ Installation:
 
 
 Version History
+
+1.9.7 (by iionly):
+    - Same changes as version 1.8.7 to work on Elgg 1.9.
+
+1.8.7 (by iionly):
+    - Changed pages layout of FAQ pages (breadcrumps and title section) to better blend in with the other Elgg pages,
+    - Some code cleanup.
 
 1.9.6 (by iionly):
     - Same changes as version 1.8.6 to work on Elgg 1.9.
