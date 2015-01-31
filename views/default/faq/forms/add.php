@@ -110,9 +110,10 @@ if($edit) {
 	function validateForm(){
 		var title = $('input[name="question"]').val();
 		var oldCat = $('#oldCat').val();
-		if (tinyMCE)
-			tinyMCE.triggerSave();
 
+		if (typeof tinyMCE != "undefined") {
+			tinyMCE.triggerSave();
+		}
 		var text = $('textarea[name="answer"]').val();
 
 		var result = true;

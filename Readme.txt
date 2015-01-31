@@ -1,9 +1,9 @@
-FAQ plugin for Elgg 1.9
-Latest Version: 1.9.7
-Released: 2014-09-27
+FAQ plugin for Elgg 1.9 and Elgg 1.10
+Latest Version: 1.9.8
+Released: 2015-01-31
 Contact: iionly@gmx.de
 License: GNU General Public License version 2
-Copyright: (C) iionly 2012-2014, (C) ColdTrick 2009-2014
+Copyright: (C) iionly 2012-2015, (C) ColdTrick 2009-2015
 
 
 
@@ -24,6 +24,10 @@ Installation:
 
 
 Version History
+
+1.9.8 (by iionly):
+    - No longer requires a Tinymce-based editor to be used,
+    - Works also on Elgg 1.10.
 
 1.9.7 (by iionly):
     - Same changes as version 1.8.7 to work on Elgg 1.9.

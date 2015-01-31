@@ -156,8 +156,9 @@ if($allow) {
 
 	function validateForm(form){
 		var formID = '#' + form.id;
-		if (tinyMCE)
+		if (typeof tinyMCE != "undefined") {
 			tinyMCE.triggerSave();
+		}
 		var title = $(formID + ' input[name="question"]').val();
 		var addVal = $(formID + " input[name='add']:checked").val();
 		var oldCat = $(formID + ' #oldCat').val();
