@@ -257,31 +257,12 @@ function getUserQuestionsCount() {
 }
 
 function notifyAdminNewQuestion(){
-	$db_prefix = elgg_get_config('dbprefix');
-	$admins1 = elgg_get_entities(array(
-		'type' => 'user',
-		'wheres' => "{$db_prefix}users_entity.admin = 'true'",
-		'joins' => "JOIN {$db_prefix}users_entity ON {$db_prefix}users_entity.guid = e.guid"
-	));
-	$admins2 = elgg_get_entities(array(
-		'type' => 'user',
-		'wheres' => "{$db_prefix}users_entity.admin = 'yes'",
-		'joins' => "JOIN {$db_prefix}users_entity ON {$db_prefix}users_entity.guid = e.guid"
-	));
-
-	if(is_array($admins1) && is_array($admins2)) {
-		$admins = array_merge($admins1, $admins2);
-	} elseif (is_array($admins1)) {
-		$admins = $admins1;
-	} elseif (is_array($admins2)) {
-		$admins = $admins2;
-	} else {
-		$admins = array();
-	}
+	$admins = elgg_get_admins(array('order_by' => 'time_created asc'));
 
 	$result = array();
 	foreach($admins as $admin) {
-		$result[] = notify_user($admin->guid, $admin->site_guid, elgg_echo("faq:ask:notify:admin:subject"), elgg_echo("faq:ask:notify:admin:message", array($admin->name, elgg_get_site_url() . "faq/asked")));
+		$summary = '<a href="' . elgg_get_site_url() . 'faq/asked">' . elgg_echo("faq:ask:notify:admin:subject") . '</a>';
+		$result[] = notify_user($admin->guid, $admins[0]->guid, elgg_echo("faq:ask:notify:admin:subject"), elgg_echo("faq:ask:notify:admin:message", array($admin->name, elgg_get_site_url() . "faq/asked")), array('summary' => $summary));
 	}
 
 	if(in_array(true, $result)) {

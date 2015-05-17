@@ -60,12 +60,16 @@ if(!empty($guid) && !empty($question) && !empty($orgQuestion) && !empty($addFAQ)
 						$url = elgg_get_site_url() . "faq/list?categoryId=" . elgg_get_metastring_id($faq->category) . "#qID" . $faq->guid;
 						if($same) {
 							// notify user, question added and not adjusted
-							$result = notify_user($user->guid, $user->site_guid, elgg_echo("faq:answer:notify:subject"), elgg_echo("faq:answer:notify:message:added:same", array($question, $url)));
+							$subject = elgg_echo("faq:answer:notify:subject");
+							$body = elgg_echo("faq:answer:notify:message:added:same", array($question, $url));
 						} else {
 							// notify user, question added and adjusted
-							$result = notify_user($user->guid, $user->site_guid, elgg_echo("faq:answer:notify:subject"), elgg_echo("faq:answer:notify:message:added:adjusted", array($orgQuestion, $question, $url)));
+							$subject = elgg_echo("faq:answer:notify:subject");
+							$body = elgg_echo("faq:answer:notify:message:added:adjusted", array($orgQuestion, $question, $url));
 						}
-
+						$result = array();
+						$result[$user->guid]['message'] = messages_send($subject, $body, $user->guid, elgg_get_logged_in_user_guid(), 0, false, false);
+						$result[] = notify_user($user->guid, elgg_get_logged_in_user_guid(), $subject, $body, array(), 'email');
 						if(in_array(true, $result)) {
 							system_message(elgg_echo("faq:answer:success:added:send"));
 						} else {
@@ -85,10 +89,15 @@ if(!empty($guid) && !empty($question) && !empty($orgQuestion) && !empty($addFAQ)
 			$user = get_user($faq->owner_guid);
 
 			if($question == $orgQuestion) {
-				$result = notify_user($user->guid, $user->site_guid, elgg_echo("faq:answer:notify:subject"), elgg_echo("faq:answer:notify:not_added:same", array($question, $answer)));
+				$subject = elgg_echo("faq:answer:notify:subject");
+				$body = elgg_echo("faq:answer:notify:not_added:same", array($question, $answer));
 			} else {
-				$result = notify_user($user->guid, $user->site_guid, elgg_echo("faq:answer:notify:subject"), elgg_echo("faq:answer:notify:not_added:adjusted", array($orgQuestion, $question, $answer)));
+				$subject = elgg_echo("faq:answer:notify:subject");
+				$body = elgg_echo("faq:answer:notify:not_added:adjusted", array($orgQuestion, $question, $answer));
 			}
+			$result = array();
+			$result[$user->guid]['message'] = messages_send($subject, $body, $user->guid, elgg_get_logged_in_user_guid(), 0, false, false);
+			$result[] = notify_user($user->guid, elgg_get_logged_in_user_guid(), $subject, $body, array(), 'email');
 
 			$faq->delete();
 

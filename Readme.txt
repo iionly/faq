@@ -1,6 +1,6 @@
-FAQ plugin for Elgg 1.9 and Elgg 1.10
-Latest Version: 1.9.8
-Released: 2015-01-31
+FAQ plugin for Elgg 1.9 - 1.11
+Latest Version: 1.9.9
+Released: 2015-05-17
 Contact: iionly@gmx.de
 License: GNU General Public License version 2
 Copyright: (C) iionly 2012-2015, (C) ColdTrick 2009-2015
@@ -24,6 +24,12 @@ Installation:
 
 
 Version History
+
+1.9.9 (by iionly):
+    - Admin site-notification summary on new question being asked is now a link to "User submitted questions" page,
+    - Notification of a user who asked a question is now done using a private message (therefore Messages plugin is now required) instead of site-notification to allow for adding a message body,
+    - When answering a user question and adding this question to the FAQs the access level gets correctly set,
+    - Spanish translation added (thanks to Francisco).
 
 1.9.8 (by iionly):
     - No longer requires a Tinymce-based editor to be used,

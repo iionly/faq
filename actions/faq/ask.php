@@ -28,8 +28,11 @@ if(!empty($question) && !empty($guid)) {
 		$faq->userQuestion = true;
 
 		if($faq->save()) {
-			$notify = notify_user($user->guid, $user->site_guid, elgg_echo("faq:ask:new_question:subject"), elgg_echo("faq:ask:new_question:message", array($question)));
-			$admins = notifyAdminNewQuestion();
+			$admins = elgg_get_admins(array('order_by' => 'time_created asc'));
+			$notify = array();
+			$notify[$user->guid]['message'] = messages_send(elgg_echo("faq:ask:new_question:subject"), elgg_echo("faq:ask:new_question:message", array($question)), $user->guid, $admins[0]->guid, 0, false, false);
+			$notify[] = notify_user($user->guid, $admins[0]->guid, elgg_echo("faq:ask:new_question:subject"), elgg_echo("faq:ask:new_question:message", array($question)), array(), 'email');
+			$admins_notified = notifyAdminNewQuestion();
 
 			if(in_array(true, $notify)) {
 				system_message(elgg_echo("faq:ask:new_question:send"));

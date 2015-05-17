@@ -105,6 +105,7 @@ We may decide to add your question to the FAQ. You will be notified with an answ
 A new question has been asked in the FAQ.
 
 To check out the outstanding question(s) please click here:
+
 %s",
 
 	// View asked questions
@@ -120,6 +121,7 @@ To check out the outstanding question(s) please click here:
 	// Answer an asked question
 	'faq:answer:notify:subject' => "Your question has been answered",
 	'faq:answer:notify:message:added:same' => "The question:
+
 %s
 
 you asked has been answered. The answer can be found here:
@@ -129,9 +131,11 @@ you asked has been answered. The answer can be found here:
 And as you can see your question has been added to the FAQ.",
 
 	'faq:answer:notify:message:added:adjusted' => "The question:
+
 %s
 
 you asked has been answered. However we adjusted the question to:
+
 %s
 
 The answer can be found here:
@@ -146,6 +150,7 @@ And as you can see your question has been added to the FAQ.",
 	'faq:answer:error:remove' => "There was an error while removing the question, please try again.",
 	'faq:answer:error:no_cat' => "Error: invalid category provided, please try again.",
 	'faq:answer:notify:not_added:same' => "The question:
+
 %s
 
 you asked has been answered. The answer is:
@@ -155,9 +160,11 @@ you asked has been answered. The answer is:
 Your question was NOT added to the FAQ.",
 
 	'faq:answer:notify:not_added:adjusted' => "The question:
+
 %s
 
 you asked has been answered. However we adjusted the question to:
+
 %s
 
 The answer is:

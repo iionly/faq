@@ -81,7 +81,6 @@ return array(
 	'faq:ask' => "Neue Frage",
 	'faq:ask:title' => "Bitte stelle Deine Frage",
 	'faq:ask:label' => "Du findest auf Deine Frage keine Antwort in den FAQs? Dann stelle hier Deine Frage: ",
-	'faq:ask:description' => "Wurde Deine Frage noch nicht in den FAQs beantwortet? Dann stelle hier Deine Frage: ",
 	'faq:ask:description' => "(Möglicherweise wird Deine Frage zu den FAQs hinzugefügt, möglicherweise nicht. Auch wenn die Frage nicht zu den FAQs hinzugefügt wird, bekommst Du auf jeden Fall eine Antwort.)",
 	'faq:ask:button' => "Fragen",
 	'faq:ask:new_question:subject' => "Deine neue Frage ist angekommen",
@@ -106,6 +105,7 @@ Falls Deine Frage auch für andere für Interesse ist, werden wir sie möglicher
 In den FAQs wurde eine neue Frage gestellt.
 
 Um die ausstehende(n) Frage(n) einzusehen, folge dem Link:
+
 %s",
 
 	// View asked questions
@@ -121,6 +121,7 @@ Um die ausstehende(n) Frage(n) einzusehen, folge dem Link:
 	// Answer an asked question
 	'faq:answer:notify:subject' => "Deine Frage wurde beantwortet",
 	'faq:answer:notify:message:added:same' => "Die Frage:
+
 %s
 
 die Du uns gestellt hast, wurde beantwortet. Die Antwort kannst Du hier einsehen:
@@ -130,9 +131,11 @@ die Du uns gestellt hast, wurde beantwortet. Die Antwort kannst Du hier einsehen
 Wie Du siehst, wurde Deine Frage auch zu den FAQs hinzugefügt.",
 
 	'faq:answer:notify:message:added:adjusted' => "Die Frage:
+
 %s
 
 die Du uns gestellt hast, wurde beantwortet. Allerdings haben wird die Frage umformuliert:
+
 %s
 
 Die Antwort kannst Du hier einsehen:
@@ -147,6 +150,7 @@ Wie Du siehst, wurde Deine Frage auch zu den FAQs hinzugefügt.",
 	'faq:answer:error:remove' => "Beim Löschen der Frage ist ein Problem aufgetreten. Bitte versuche es noch einmal.",
 	'faq:answer:error:no_cat' => "Fehler: die ausgewählte Kategorie ist ungültig. Bitte versuche es noch einmal.",
 	'faq:answer:notify:not_added:same' => "Die Frage:
+
 %s
 
 die Du uns gestellt hast, wurde beantwortet. Die Antwort ist:
@@ -156,9 +160,11 @@ die Du uns gestellt hast, wurde beantwortet. Die Antwort ist:
 Die Frage wurde nicht zu den FAQs hinzugefügt.",
 
 	'faq:answer:notify:not_added:adjusted' => "Die Frage:
+
 %s
 
 die Du uns gestellt hast, wurde beantwortet. Allerdings haben wird die Frage umformuliert:
+
 %s
 
 Die Antwort ist:

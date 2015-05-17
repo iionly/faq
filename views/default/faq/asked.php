@@ -38,7 +38,7 @@ if($allow) {
 				$category_option_values[$cat] = $cat;
 			}
 			$category_option_values['newCat'] = elgg_echo("faq:add:oldcat:new");
-			$select = elgg_view("input/dropdown", array(
+			$select = elgg_view("input/select", array(
 				'name' => 'oldCat',
 				'id' => 'oldCat',
 				'options_values' => $category_option_values,
@@ -47,10 +47,10 @@ if($allow) {
 			));
 
 			// Access selector
-			$accessSelector = elgg_view("input/dropdown", array(
+			$accessSelector = elgg_view("input/select", array(
 				'name' => 'access',
 				'id' => 'access',
-				'options_values' => array('ACCESS_PUBLIC' => elgg_echo("PUBLIC"), 'ACCESS_LOGGED_IN' => elgg_echo("LOGGED_IN")),
+				'options_values' => array(ACCESS_PUBLIC => elgg_echo("PUBLIC"), ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN")),
 				'value' => ACCESS_PUBLIC,
 				'disabled' => 'disabled'
 			));
