@@ -19,15 +19,17 @@ if(!empty($id)) {
 
 	if(!empty($faq) && $faq instanceof FAQObject) {
 		if($faq->delete()) {
-			system_message(elgg_echo("faq:delete:success"));
+			$response = array('success' => true, 'message' => elgg_echo("faq:delete:success"));
 		} else {
-			register_error(elgg_echo("faq:delete:error:delete"));
+			$response = array('success' => false, 'message' => elgg_echo("faq:delete:error:delete"));
 		}
 	} else {
-		register_error("faq:delete:error:invalid_object");
+		$response = array('success' => false, 'message' => elgg_echo("faq:delete:error:invalid_object"));
 	}
 } else {
-	register_error(elgg_echo("faq:delete:error:invalid_input"));
+	$response = array('success' => false, 'message' => elgg_echo("faq:delete:error:invalid_input"));
 }
 
-forward(REFERER);
+echo json_encode($response);
+
+exit();

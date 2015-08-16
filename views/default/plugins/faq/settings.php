@@ -1,46 +1,110 @@
 <?php
 
-?>
-<!-- Publicly available? -->
-<?php echo elgg_echo("faq:settings:public");?>
-<select name="params[publicAvailable]">
-	<option value="yes" <?php if ($vars['entity']->publicAvailable == 'yes') echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:yes'); ?></option>
-	<option value="no" <?php if ($vars['entity']->publicAvailable == 'no' || empty($vars['entity']->publicAvailable)) echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:no'); ?></option>
-</select>
-<br><br>
+if (empty($vars['entity']->publicAvailable)) {
+	$publicAvailable = 'no';
+} else {
+	$publicAvailable = $vars['entity']->publicAvailable;
+}
 
-<!-- Site Menu entry visible when not logged in? -->
-<?php echo elgg_echo("faq:settings:publicAvailable_sitemenu");?>
-<select name="params[publicAvailable_sitemenu]">
-	<option value="yes" <?php if ($vars['entity']->publicAvailable_sitemenu == 'yes') echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:yes'); ?></option>
-	<option value="no" <?php if ($vars['entity']->publicAvailable_sitemenu == 'no' || empty($vars['entity']->publicAvailable)) echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:no'); ?></option>
-</select>
-<br><br>
+if (empty($vars['entity']->publicAvailable_sitemenu)) {
+	$publicAvailable_sitemenu = 'no';
+} else {
+	$publicAvailable_sitemenu = $vars['entity']->publicAvailable_sitemenu;
+}
 
-<!-- Footer link visible when not logged in? -->
-<?php echo elgg_echo("faq:settings:publicAvailable_footerlink");?>
-<select name="params[publicAvailable_footerlink]">
-	<option value="yes" <?php if ($vars['entity']->publicAvailable_footerlink == 'yes') echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:yes'); ?></option>
-	<option value="no" <?php if ($vars['entity']->publicAvailable_footerlink == 'no' || empty($vars['entity']->publicAvailable)) echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:no'); ?></option>
-</select>
-<br><br>
+if (empty($vars['entity']->publicAvailable_footerlink)) {
+	$publicAvailable_footerlink = 'no';
+} else {
+	$publicAvailable_footerlink = $vars['entity']->publicAvailable_footerlink;
+}
 
-<!-- Allow user questions? -->
-<?php echo elgg_echo("faq:settings:ask");?>
-<select name="params[userQuestions]">
-	<option value="yes" <?php if ($vars['entity']->userQuestions == 'yes') echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:yes'); ?></option>
-	<option value="no" <?php if ($vars['entity']->userQuestions == 'no' || empty($vars['entity']->publicAvailable)) echo " selected=\"yes\" "; ?>><?php echo elgg_echo('option:no'); ?></option>
-</select>
-<br><br>
+if (empty($vars['entity']->userQuestions)) {
+	$userQuestions = 'no';
+} else {
+	$userQuestions = $vars['entity']->userQuestions;
+}
 
-<!-- Minimum search word length -->
-<?php echo elgg_echo("faq:settings:minimum_search_tag_size") . "<br>"; ?>
-<?php if(!$vars['entity']->minimumSearchTagSize) $vars['entity']->minimumSearchTagSize = "3";?>
-<input type="text" name="params[minimumSearchTagSize]" value="<?php echo $vars['entity']->minimumSearchTagSize;?>"/>
-<br><br>
+if (!$vars['entity']->minimumSearchTagSize) {
+	$minimumSearchTagSize = 3;
+} else {
+	$minimumSearchTagSize = $vars['entity']->minimumSearchTagSize;
+}
 
-<!-- Minimum search hit count -->
-<?php echo elgg_echo("faq:settings:minimum_hit_count") . "<br>"; ?>
-<?php if(!$vars['entity']->minimumHitCount) $vars['entity']->minimumHitCount = "1";?>
-<input type="text" name="params[minimumHitCount]" value="<?php echo $vars['entity']->minimumHitCount;?>"/>
-<br><br>
+if (!$vars['entity']->minimumHitCount) {
+	$minimumHitCount = 1;
+} else {
+	$minimumHitCount = $vars['entity']->minimumHitCount;
+}
+
+
+// Publicly available?
+$form = "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:public") . "</label>";
+$form .= elgg_view('input/select', array(
+	'name' => 'params[publicAvailable]',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	),
+	'value' => $publicAvailable
+));
+$form .= "</div>";
+
+// Site Menu entry visible when not logged in?
+$form .= "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:publicAvailable_sitemenu") . "</label>";
+$form .= elgg_view('input/select', array(
+	'name' => 'params[publicAvailable_sitemenu]',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	),
+	'value' => $publicAvailable_sitemenu
+));
+$form .= "</div>";
+
+// Footer link visible when not logged in?
+$form .= "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:publicAvailable_footerlink") . "</label>";
+$form .= elgg_view('input/select', array(
+	'name' => 'params[publicAvailable_footerlink]',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	),
+	'value' => $publicAvailable_footerlink
+));
+$form .= "</div>";
+
+// Allow user questions?
+$form .= "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:ask") . "</label>";
+$form .= elgg_view('input/select', array(
+	'name' => 'params[userQuestions]',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	),
+	'value' => $userQuestions
+));
+$form .= "</div>";
+
+// Minimum search word length
+$form .= "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:minimum_search_tag_size") . "</label><br>";
+$form .= elgg_view('input/text', array(
+	'name' => 'params[minimumSearchTagSize]',
+	'value' => $minimumSearchTagSize
+));
+$form .= "</div>";
+
+// Minimum search hit count
+$form .= "<div class='mbm'>";
+$form .= "<label>" . elgg_echo("faq:settings:minimum_hit_count") . "</label><br>";
+$form .= elgg_view('input/text', array(
+	'name' => 'params[minimumHitCount]',
+	'value' => $minimumHitCount
+));
+$form .= "</div>";
+
+echo $form;

@@ -12,7 +12,7 @@
 	cursor: pointer;
 	width:14px;
 	height:14px;
-	background: url("<?php echo elgg_get_config('wwwroot'); ?>mod/faq/_graphics/edit.png") no-repeat 0 0;
+	background: url("<?php echo elgg_get_site_url(); ?>mod/faq/_graphics/edit.png") no-repeat 0 0;
 }
 
 .answer {
@@ -60,20 +60,4 @@
 
 .faqSelect {
 	display:none;
-}
-
-.faqCategorySidebar a {
-	display: block;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	border-radius: 8px;
-	background-color: white;
-	margin: 3px 0 5px 0;
-	padding: 2px 4px 2px 8px;
-}
-
-.faqCategorySidebar a:hover {
-	background: #0054A7;
-	color: white;
-	text-decoration: none;
 }

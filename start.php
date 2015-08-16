@@ -113,7 +113,6 @@ function faq_search_hook($hook, $handler, $return, $params) {
 	return false;
 }
 
-
 function faq_public($hook, $handler, $return, $params) {
 	$pages = array('faq', 'faq/list', 'action/faq/search');
 	return array_merge($pages, $return);
@@ -261,8 +260,11 @@ function notifyAdminNewQuestion(){
 
 	$result = array();
 	foreach($admins as $admin) {
-		$summary = '<a href="' . elgg_get_site_url() . 'faq/asked">' . elgg_echo("faq:ask:notify:admin:subject") . '</a>';
-		$result[] = notify_user($admin->guid, $admins[0]->guid, elgg_echo("faq:ask:notify:admin:subject"), elgg_echo("faq:ask:notify:admin:message", array($admin->name, elgg_get_site_url() . "faq/asked")), array('summary' => $summary));
+		$admin_language = ($admin->language) ? $admin->language : (($site_language = elgg_get_config('language')) ? $site_language : 'en');
+		$subject = elgg_echo("faq:ask:notify:admin:subject", array(), $admin_language);
+		$message = elgg_echo("faq:ask:notify:admin:message", array($admin->name, elgg_get_site_url() . "faq/asked"), $admin_language);
+		$summary = '<a href="' . elgg_get_site_url() . 'faq/asked">' . elgg_echo("faq:ask:notify:admin:subject", array(), $admin_language) . '</a>';
+		$result[] = notify_user($admin->guid, elgg_get_logged_in_user_guid(), $subject, $message, array('summary' => $summary));
 	}
 
 	if(in_array(true, $result)) {

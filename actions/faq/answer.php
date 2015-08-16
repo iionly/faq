@@ -58,14 +58,15 @@ if(!empty($guid) && !empty($question) && !empty($orgQuestion) && !empty($addFAQ)
 				if(elgg_delete_metadata(array('guid' => $faq->guid, 'metadata_name' => "userQuestion", 'metadata_value' => true, 'limit' => 0))) {
 					if($faq->save()) {
 						$url = elgg_get_site_url() . "faq/list?categoryId=" . elgg_get_metastring_id($faq->category) . "#qID" . $faq->guid;
+						$user_language = ($user->language) ? $user->language : (($site_language = elgg_get_config('language')) ? $site_language : 'en');
 						if($same) {
 							// notify user, question added and not adjusted
-							$subject = elgg_echo("faq:answer:notify:subject");
-							$body = elgg_echo("faq:answer:notify:message:added:same", array($question, $url));
+							$subject = elgg_echo("faq:answer:notify:subject", array(), $user_language);
+							$body = elgg_echo("faq:answer:notify:message:added:same", array($question, $url), $user_language);
 						} else {
 							// notify user, question added and adjusted
-							$subject = elgg_echo("faq:answer:notify:subject");
-							$body = elgg_echo("faq:answer:notify:message:added:adjusted", array($orgQuestion, $question, $url));
+							$subject = elgg_echo("faq:answer:notify:subject", array(), $user_language);
+							$body = elgg_echo("faq:answer:notify:message:added:adjusted", array($orgQuestion, $question, $url), $user_language);
 						}
 						$result = array();
 						$result[$user->guid]['message'] = messages_send($subject, $body, $user->guid, elgg_get_logged_in_user_guid(), 0, false, false);
@@ -87,13 +88,13 @@ if(!empty($guid) && !empty($question) && !empty($orgQuestion) && !empty($addFAQ)
 		} else {
 			// Do not add to FAQ, just answer to the User
 			$user = get_user($faq->owner_guid);
-
+			$user_language = ($user->language) ? $user->language : (($site_language = elgg_get_config('language')) ? $site_language : 'en');
 			if($question == $orgQuestion) {
-				$subject = elgg_echo("faq:answer:notify:subject");
-				$body = elgg_echo("faq:answer:notify:not_added:same", array($question, $answer));
+				$subject = elgg_echo("faq:answer:notify:subject", array(), $user_language);
+				$body = elgg_echo("faq:answer:notify:not_added:same", array($question, $answer), $user_language);
 			} else {
-				$subject = elgg_echo("faq:answer:notify:subject");
-				$body = elgg_echo("faq:answer:notify:not_added:adjusted", array($orgQuestion, $question, $answer));
+				$subject = elgg_echo("faq:answer:notify:subject", array(), $user_language);
+				$body = elgg_echo("faq:answer:notify:not_added:adjusted", array($orgQuestion, $question, $answer), $user_language);
 			}
 			$result = array();
 			$result[$user->guid]['message'] = messages_send($subject, $body, $user->guid, elgg_get_logged_in_user_guid(), 0, false, false);

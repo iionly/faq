@@ -1,5 +1,7 @@
 <?php
 
+elgg_require_js('faq/list');
+
 $catId = (int)get_input("categoryId");
 if(!empty($catId)) {
 	$cats = getCategories();
@@ -10,7 +12,7 @@ if(!empty($catId)) {
 		$faqs = getFaqs($cat);
 
 		if(!empty($faqs)) {
-			$display = "<h3>" . elgg_echo("faq:list:category_title") . $cat . "</h3><br>";
+			$display = "<div class='mbm'><h3>" . elgg_echo("faq:list:category_title") . $cat . "</h3></div>";
 
 			foreach($faqs as $faq) {
 				$display .= elgg_view("object/faq", array("entity" => $faq));
@@ -27,137 +29,41 @@ if(!empty($catId)) {
 	forward(elgg_get_site_url() . "faq/");
 }
 
-?>
+echo "<div><div id='result'>" . $display . "</div></div>";
 
-<div>
-	<div id="result">
-		<?php echo $display; ?>
-	</div>
-</div>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		var hash=location.hash;
-		if (hash){
-			var aID = '#aID'+hash.substring(4);
-			$(aID).show();
-		}
-	});
-</script>
-
-<?php
 if(elgg_is_admin_logged_in() && !empty($catId)) {
-?>
+	elgg_require_js('faq/list_admin');
 
-<script type="text/javascript">
-	function showEditOptions(){
-		$('#beginEdit').hide();
-
-		$('#editOptions').show();
-		$('div[id^="faqSelect"]').each(function(){
-			$('#' + this.id).show();
-		});
-	}
-
-	function hideEditOptions(){
-		$('#editOptions').hide();
-		$('div[id^="faqSelect"]').each(function(){
-			$('#' + this.id).hide();
-		});
-
-		$('#beginEdit').show();
-	}
-
-	function selectAll(){
-		$('div[id^="faqSelect"] input[type="checkbox"]').each(function(){
-			$('input[id="' + this.id + '"]').attr("checked",true);
-		});
-	}
-
-	function selectNone(){
-		$('div[id^="faqSelect"] input[type="checkbox"]').each(function(){
-			$('input[id="' + this.id + '"]').attr("checked",false);
-		});
-	}
-
-	function changeCategory(){
-		var selVal = $('#newCategory').val();
-
-		if(selVal != ""){
-			var i = 0;
-			var postData = "";
-
-			$('div[id^="faqSelect"] input[type="checkbox"]:checked').each(function(){
-				postData = postData + "<input type='hidden' value='" + this.value + "' name='faqGuid[" + i + "]' />";
-				i++;
-			});
-
-			if(i > 0){
-				if(selVal == "new"){
-					var retVal = prompt("<?php echo elgg_echo("faq:list:edit:new_category"); ?>", "");
-					if(retVal != "" && retVal != null){
-						selVal = retVal;
-					} else {
-						$('#newCategory').val('');
-						return null;
-					}
-				}
-
-				postData = postData + "<input type='hidden' value='" + selVal + "' name='category' />";
-
-				if(confirm("<?php echo elgg_echo("faq:list:edit:confirm:question"); ?>" + i + "<?php echo elgg_echo("faq:list:edit:confirm:category")?>" + selVal)){
-					$('#changeCategoryForm').append(postData);
-					$('#changeCategoryForm').submit();
-				} else {
-					$('#newCategory').val('');
-				}
-			} else {
-				alert("<?php echo elgg_echo("faq:list:edit:category:please"); ?>");
-				$('#newCategory').val('');
-			}
+	echo "<div id='beginEdit' class='listEditBegin mtm mbm'>";
+	echo elgg_view('input/button', array("class" => "elgg-button elgg-button-submit", "name" => "beginEdit", "value" => elgg_echo("faq:list:edit:begin")));
+	echo "</div>";
+	echo "<div id='editOptions' class='listEditOptions'>";
+	echo "<div class='mbm'>";
+	echo elgg_view('input/button', array("class" => "elgg-button elgg-button-action", "name" => "all", "value" => elgg_echo("faq:list:edit:all")));
+	echo elgg_view('input/button', array("class" => "elgg-button elgg-button-action", "name" => "none", "value" => elgg_echo("faq:list:edit:none")));
+	echo "</div>";
+	echo "<div>";
+	echo "<div class='mbm'>";
+	echo elgg_echo("faq:change_category:description");
+	echo "</div>";
+	echo "<div class='mbm'><label>" . elgg_echo("faq:change_category:new_category") . "</label><br>";
+	$cats = getCategories();
+	$category_option_values = array('' => elgg_echo("faq:list:edit:select:choice"));
+	foreach($cats as $category) {
+		if ($category != $cat) {
+			$category_option_values[$category] = $category;
 		}
 	}
-</script>
-
-<div>
-	<div id="beginEdit" class="listEditBegin">
-		<br>
-		<input class="elgg-button elgg-button-submit" type="button" name="beginEdit" value="<?php echo elgg_echo("faq:list:edit:begin"); ?>" onClick="showEditOptions();" />
-	</div>
-	<div id="editOptions" class="listEditOptions">
-		<br>
-		<div>
-			<input class="elgg-button elgg-button-action" type="button" name="all" value="<?php echo elgg_echo("faq:list:edit:all"); ?>" onClick="selectAll();" />
-			<input class="elgg-button elgg-button-action" type="button" name="none" value="<?php echo elgg_echo("faq:list:edit:none"); ?>" onClick="selectNone();" />
-		</div>
-		<div>
-			<br>
-			<?php echo elgg_echo("faq:change_category:description"); ?>
-			<br><br>
-			<label><?php echo elgg_echo("faq:change_category:new_category"); ?></label>
-			<br>
-			<select id="newCategory" onChange="changeCategory();">
-				<?php
-					$cats = getCategories();
-
-					$options = "<option value=''>" . elgg_echo("faq:list:edit:select:choice") . "</option>\n";
-					foreach($cats as $category) {
-						if($category != $cat) {
-							$options .= "<option value='" . $category . "'>" . $category . "</options>\n";
-						}
-					}
-					$options .= "<option value='new'>" . elgg_echo("faq:list:edit:select:new") . "</option>\n";
-
-					echo $options;
-				?>
-			</select>
-			<br><br>
-			<input class="elgg-button elgg-button-cancel" type="button" name="cancel" value="<?php echo elgg_echo("cancel"); ?>" onClick="hideEditOptions();" />
-				<?php echo elgg_view("input/form", array("id" => "changeCategoryForm", "action" => elgg_get_site_url() . "action/faq/changeCategory")); ?>
-		</div>
-		<div class="clearFloat"></div>
-	</div>
-</div>
-
-<?php
+	$category_option_values['new'] = elgg_echo("faq:list:edit:select:new");
+	echo elgg_view("input/select", array(
+		'name' => 'newCategory',
+		'id' => 'newCategory',
+		'options_values' => $category_option_values,
+	));
+	echo "</div>";
+	echo elgg_view('input/button', array("class" => "elgg-button elgg-button-cancel", "name" => "cancel", "value" => elgg_echo("cancel")));
+	echo elgg_view("input/form", array("id" => "changeCategoryForm", "action" => elgg_get_site_url() . "action/faq/changeCategory"));
+	echo "</div>";
+	echo "<div class='clearFloat'></div>";
+	echo "</div>";
 }

@@ -30,8 +30,11 @@ if(!empty($question) && !empty($guid)) {
 		if($faq->save()) {
 			$admins = elgg_get_admins(array('order_by' => 'time_created asc'));
 			$notify = array();
-			$notify[$user->guid]['message'] = messages_send(elgg_echo("faq:ask:new_question:subject"), elgg_echo("faq:ask:new_question:message", array($question)), $user->guid, $admins[0]->guid, 0, false, false);
-			$notify[] = notify_user($user->guid, $admins[0]->guid, elgg_echo("faq:ask:new_question:subject"), elgg_echo("faq:ask:new_question:message", array($question)), array(), 'email');
+			$user_language = ($user->language) ? $user->language : (($site_language = elgg_get_config('language')) ? $site_language : 'en');
+			$subject = elgg_echo("faq:ask:new_question:subject", array(), $user_language);
+			$message = elgg_echo("faq:ask:new_question:message", array($question), $user_language);
+			$notify[$user->guid]['message'] = messages_send($subject, $message, $user->guid, $admins[0]->guid, 0, false, false);
+			$notify[] = notify_user($user->guid, $admins[0]->guid, $subject, $message, array(), 'email');
 			$admins_notified = notifyAdminNewQuestion();
 
 			if(in_array(true, $notify)) {

@@ -50,7 +50,7 @@ if(elgg_is_admin_logged_in()) {
 				$item = new ElggMenuItem($cat, $cat, $url);
 				$item->setContext('faq');
 				$item->setSection('d');
-				$category_links .= elgg_view('navigation/menu/elements/item', array('item' => $item, 'item_class' => 'faqCategorySidebar'));
+				$category_links .= elgg_view('navigation/menu/elements/item', array('item' => $item));
 			}
 			echo $category_links;
 		?>

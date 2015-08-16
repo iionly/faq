@@ -1,53 +1,43 @@
 <?php
 
+elgg_require_js('faq/faq_entity');
+
 $faq = $vars["entity"];
 $selected = $vars["selected"];
 $hitcount = $vars["hitcount"];
 
-if(elgg_is_admin_logged_in()) {
-	$delBody = elgg_view("input/hidden", array("name" => "guid", "value" => $faq->guid));
-	$delForm = elgg_view("input/form", array("id" => "delForm" . $faq->guid, "action" => elgg_get_site_url() . "action/faq/delete", "body" => $delBody));
+echo "<div>";
+echo "<table><tr>";
+
+if (elgg_is_admin_logged_in()) {
+	echo "<td><div id='faqSelect" . $faq->guid . "' class='faqSelect'>";
+	echo elgg_view('input/checkbox', array("name" => "selectQuestion", "id" => "selectQuestion" . $faq->guid, "value" => $faq->guid));
+	echo "</div></td>";
 }
 
-?>
+echo "<td width='100%'>";
+if (!empty($hitcount)) {
+	echo "<a href='" . elgg_get_site_url() . "faq/list?categoryId=" . elgg_get_metastring_id($faq->category) . "'>" . $faq->category . "</a>&nbsp;>&nbsp;";
+}
+echo "<a href='javascript:void(0);' class='qID' id='qID" . $faq->guid . "' data-faqguid='" . $faq->guid . "'>" . $faq->question . "</a>";
+echo "</td>";
 
-<div>
-	<table>
-		<tr>
-			<?php if(elgg_is_admin_logged_in()) { ?>
-				<td><div id="faqSelect<?php echo $faq->guid; ?>" class="faqSelect"><input type="checkbox" name="selectQuestion" id="selectQuestion<?php echo $faq->guid; ?>" value="<?php echo $faq->guid; ?>" /></div></td>
-			<?php } ?>
-			<td width="100%">
-				<?php if(!empty($hitcount)) { ?>
-					<a href="<?php elgg_get_site_url(); ?>faq/list?categoryId=<?php echo elgg_get_metastring_id($faq->category); ?>"><?php echo $faq->category; ?></a>&nbsp;>
-				<?php } ?>
-				<a href="javascript:void(0);" id="qID<?php echo $faq->guid; ?>" onClick="$('#aID<?php echo $faq->guid; ?>').toggle();"><?php echo $faq->question; ?></a>
-			</td>
-			<?php if(!empty($hitcount)) { ?>
-				<!-- Hitcounter -->
-				<td class="hitcount"><?php echo elgg_echo("faq:search:hitcount") . " " . $hitcount; ?></td>
-			<?php } ?>
-			<?php if(elgg_is_admin_logged_in()) { ?>
-				<!-- ADMIN options -->
-				<td>
-					<div class="faqedit" onClick="document.location.href='<?php echo elgg_get_config('wwwroot'); ?>faq/edit?id=<?php echo $faq->guid; ?>'"></div>
-				</td>
-				<td>
-					<div class="elgg-icon elgg-icon-delete" onClick="$('#delForm<?php echo $faq->guid; ?>').submit();">
-						<script type="text/javascript">
-							$(document).ready(function(){
-								$('#delForm<?php echo $faq->guid; ?>').submit(function(){
-									return confirm("<?php echo elgg_echo("faq:delete:confirm"); ?>");
-								});
-							});
-						</script>
-						<?php echo $delForm; ?>
-					</div>
-				</td>
-			<?php } ?>
-		</tr>
-	</table>
-	<div id="aID<?php echo $faq->guid; ?>" class="answer">
-		<?php echo elgg_view('output/longtext', array('value' => $faq->answer)); ?>
-	</div>
-</div>
+if (!empty($hitcount)) {
+	echo "<td class='hitcount'>" . elgg_echo("faq:search:hitcount") . " " . $hitcount . "</td>";
+}
+
+if (elgg_is_admin_logged_in()) {
+	echo "<td>";
+	echo "<div class='faqedit' data-faqguid='" . $faq->guid . "'></div>";
+	echo "</td>";
+
+	echo "<td>";
+	echo "<div class='delForm elgg-icon elgg-icon-delete' data-faqguid='" . $faq->guid . "'></div>";
+	echo "</td>";
+}
+
+echo "</tr></table>";
+
+echo "<div id='aID" . $faq->guid . "' class='answer'>";
+echo elgg_view('output/longtext', array('value' => $faq->answer));
+echo "</div></div>";
