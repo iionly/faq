@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.9.11 (by iionly)
+------------------
+
+- composer.json added.
+
 1.9.10 (by iionly)
 ------------------
 
