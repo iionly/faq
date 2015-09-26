@@ -19,11 +19,11 @@ echo "</td>";
 
 if (elgg_is_admin_logged_in()) {
 	echo "<td>";
-	echo "<div class='faqedit' data-faqguid='" . $faq->guid . "'></div>";
+	echo "<div class='faqedit' data-faqguid='" . $faq->guid . "'>" . elgg_view_icon('faqedit') . "</div>";
 	echo "</td>";
 
 	echo "<td>";
-	echo "<div class='delForm elgg-icon elgg-icon-delete' data-faqguid='" . $faq->guid . "'></div>";
+	echo "<div class='delForm' data-faqguid='" . $faq->guid . "'>" . elgg_view_icon('delete') . "</div>";
 	echo "</td>";
 }
 

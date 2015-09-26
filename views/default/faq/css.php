@@ -7,12 +7,15 @@
 	white-space: nowrap;
 }
 
-.faqedit {
-	margin: 2px 2px 0 4px;
+.elgg-icon-faqedit:before {
+	font-size: larger !important;
 	cursor: pointer;
-	width:14px;
-	height:14px;
-	background: url("<?php echo elgg_get_site_url(); ?>mod/faq/_graphics/edit.png") no-repeat 0 0;
+	margin: 0 2px;
+	content: "\f044";
+}
+
+.delForm {
+	cursor: pointer;
 }
 
 .answer {
