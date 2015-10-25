@@ -24,5 +24,5 @@ echo "</div>";
 
 echo "<div id='result' style='display:none;'></div>";
 echo "<div id='waiting' style='display:none;'>";
-echo "<img src='" . elgg_get_site_url() . "_graphics/ajax_loader.gif" . "'/>";
+echo "<img src='" . elgg_get_simplecache_url('ajax_loader.gif') . "'/>";
 echo "</div>";

@@ -1,8 +1,8 @@
 FAQ plugin for Elgg 2.X
 =======================
 
-Latest Version: 2.0.0  
-Released: 2015-09-26  
+Latest Version: 2.0.1  
+Released: 2015-10-25  
 Contact: iionly@gmx.de  
 License: GNU General Public License version 2  
 Copyright: (C) iionly 2012-2015, (C) ColdTrick 2009-2015

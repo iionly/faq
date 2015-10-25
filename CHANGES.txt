@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.1 (by iionly)
+-----------------
+
+- Correction of url for ajax_loader.gif in usage on search page.
+
 2.0.0 (by iionly)
 -----------------
 
