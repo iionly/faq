@@ -183,4 +183,3 @@ Votre question n'a PAS été ajoutée à la FAQ.",
 	'faq:stats:questions' => " avec %s questions/réponses au total.",
 	'faq:stats:user' => "Il y a %s questions des membres en attente d'une réponse."
 );
-

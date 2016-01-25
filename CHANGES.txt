@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.2 (by iionly)
+-----------------
+
+- French translation added (thanks to Facyla),
+- Added missing id tag in manifest.xml.
+
 2.0.1 (by iionly)
 -----------------
 
